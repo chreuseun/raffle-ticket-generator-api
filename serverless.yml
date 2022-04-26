@@ -23,6 +23,9 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: nodejs12.x
+  stage: ${opt:stage}
+  region: us-east-1
+
 
 # you can overwrite defaults here
 #  stage: dev

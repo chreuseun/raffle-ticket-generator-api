@@ -26,6 +26,29 @@ provider:
   stage: ${opt:stage}
   region: ap-southeast-1
   memorySize: 128
+  environment:
+    TABLE_ACCOUNTS: ACCOUNTS
+
+resources:
+  Resources:
+    CandidatesDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          - # https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_AttributeDefinition.html  
+            AttributeName: "id" ## string
+            AttributeType: "S"  ## S | N | B
+        KeySchema:
+          - # https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-keyschema.html#aws-properties-dynamodb-keyschema-keytype
+            AttributeName: "id" ## string
+            KeyType: "HASH" ## HASH | RANGE
+        ProvisionedThroughput: # https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_ProvisionedThroughput.html
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        StreamSpecification: # https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_StreamSpecification.html
+          StreamViewType: "NEW_AND_OLD_IMAGES"
+        TableName: ${self:provider.environment.TABLE_ACCOUNTS}
 
 # you can overwrite defaults here
 #  stage: dev

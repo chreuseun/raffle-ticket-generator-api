@@ -5,7 +5,8 @@
   "main": "handler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "startDEV": "sh aws-credential.sh"
+    "startDEV": "sh aws-credential.sh",
+    "slsDEV":"sls deploy --stage 'dev'"
   },
   "repository": {
     "type": "git",

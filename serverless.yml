@@ -95,6 +95,10 @@ functions:
           method: post
           path: update-user
         
+	
+plugins:
+  - serverless-ignore
+         
         
   # checkAuthorization:
   #   handler: src/GET.checkAuthorization

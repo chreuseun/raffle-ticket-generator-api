@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "startDEV": "sh aws-credential.sh",
-    "slsDEV":"sls deploy --stage 'dev'"
+    "slsDEV": "sls deploy --stage 'dev'"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/chreuseun/raffle-ticket-generator-api/issues"
   },
-  "homepage": "https://github.com/chreuseun/raffle-ticket-generator-api#readme"
+  "homepage": "https://github.com/chreuseun/raffle-ticket-generator-api#readme",
+  "devDependencies": {
+    "serverless-ignore": "^0.2.1"
+  }
 }

@@ -6,7 +6,7 @@ const { account }  = require('../schemas/account')
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-const saveUser = async user => {
+const saveUser = async (user, callback) => {
   try{
     console.log(`Saving user: `);
     const userInfo = {
@@ -14,12 +14,24 @@ const saveUser = async user => {
       Item: user,
     };
 
-    await dynamoDb.put(userInfo)
+    await dynamoDb.put(userInfo).promise();
 
-    return true
+    
+    return callback(null, {
+      statusCode: 200,
+      body: JSON.stringify({
+        message: `Email: ${user.email} is successfully saved`,
+        success: true
+      })
+    })
   }catch(err){
-    console.log('create-user: ', e)
-    return false;
+    return callback(null, {
+      statusCode: 500,
+      body: JSON.stringify({
+        message: `ERROR_1: Unable to submit candidate with email, ERROR: ${err} `,
+        success: false
+      })
+    })   
   }
 };
 
@@ -42,15 +54,8 @@ const createUser = async ( event, _, callback ) => {
       return;
     }
 
-    const dbResponse = await saveUser(account({email, password}))
+    const dbResponse = await saveUser(account({email, password}),callback)
 
-    callback(null, {
-      statusCode: dbResponse ? 200 : 500,
-      body: JSON.stringify({
-        message: dbResponse ? `Email: ${email} is successfully saved` : 'Error: User is not saved.',
-        success: dbResponse
-      })
-    })
   }catch(err){
     callback(null, {
       statusCode: 500,

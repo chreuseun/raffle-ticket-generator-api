@@ -5,3 +5,4 @@ jspm_packages
 # Serverless directories
 .serverless
 aws-credential.sh
+aws-credential-production.sh

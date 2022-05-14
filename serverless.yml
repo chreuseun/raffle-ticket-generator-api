@@ -144,7 +144,16 @@ functions:
       - http: 
           method: post
           path: update-user
-        
+  savePrintingRecod: 
+    handler: src/POST.savePrintingRecord
+    description: Save 1 printing recod
+    name: ${opt:stage}-${self:service}-save-print-record   
+    events:
+      - http: 
+          method: post
+          path: save-printing-record
+
+
 	
 plugins:
   - serverless-ignore

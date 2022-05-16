@@ -76,7 +76,15 @@ resources:
         StreamSpecification: # https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_StreamSpecification.html
           StreamViewType: "NEW_AND_OLD_IMAGES"
         TableName: ${self:provider.environment.TABLE_PRINT_RECORDS}
-
+    GatewayResponseDefault4XX:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1

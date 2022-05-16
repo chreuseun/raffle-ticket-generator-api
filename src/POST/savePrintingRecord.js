@@ -3,11 +3,13 @@
 const AWS = require('aws-sdk');
 
 const { printRecord }  = require('../schemas/printRecord')
+const { DEFAULT_HTTP_HEADERS } = require('../constants/https')
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
-
+const headers = { ...DEFAULT_HTTP_HEADERS }
 
 const savePrintRecord =  async (printRecord, callback) => {
+
   try{
     console.log(`Saving Print Record in ${process.env.TABLE_PRINT_RECORDS}`);
 
@@ -20,6 +22,7 @@ const savePrintRecord =  async (printRecord, callback) => {
 
     callback(null,{
       statusCode: 200,
+      headers,
       body: JSON.stringify({
         message: `Printing Record: Successfully saved.`,
         success:true
@@ -29,6 +32,7 @@ const savePrintRecord =  async (printRecord, callback) => {
   }catch(err){
     callback(null, {
       statusCode: 500,
+      headers,
       body: JSON.stringify({
         message: `Save Print Record: Database operation related issue, unable to save print record. Error details: ${err} `,
         success: false
@@ -65,6 +69,7 @@ const savePrintingRecords = async ( event, _, callback ) => {
 
     callback(null,{
       statusCode: 500,
+      headers,
       body: JSON.stringify({
         message: `Save Printing Record: Input validation error`,
         success:false
@@ -74,6 +79,7 @@ const savePrintingRecords = async ( event, _, callback ) => {
   }catch(err){
     callback(null, {
       statusCode: 500,
+      headers,
       body: JSON.stringify({
         message: `Unable to save printing record. Error: ${err} `,
         success: false

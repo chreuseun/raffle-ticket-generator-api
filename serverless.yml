@@ -120,6 +120,7 @@ functions:
       - http: 
           method: get
           path: check-authorization
+          cors: true
   loginUser:
     handler: src/POST.loginUser
     description: Check Email & password in server
@@ -128,6 +129,7 @@ functions:
       - http: 
           method: post
           path: login-user
+          cors: true
   createUser:
     handler: src/POST.createUser
     description: Create 1 user and save on DB
@@ -136,6 +138,7 @@ functions:
       - http: 
           method: post
           path: create-user
+          cors: true
   updateUser:
     handler: src/POST.updateUser
     description: Update details of one user by ID
@@ -144,6 +147,7 @@ functions:
       - http: 
           method: post
           path: update-user
+          cors: true
   savePrintingRecod: 
     handler: src/POST.savePrintingRecord
     description: Save 1 printing recod
@@ -152,9 +156,8 @@ functions:
       - http: 
           method: post
           path: save-printing-record
+          cors: true
 
-
-	
 plugins:
   - serverless-ignore
          

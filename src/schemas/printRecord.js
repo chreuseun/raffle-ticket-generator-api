@@ -16,6 +16,7 @@ const printRecord =  ({
     prefix, // Prefix from the spread sheet file
     create_at: now, // unix timestamp
     update_at: now, // unix timestamp
+    is_deleted: false
   };
 };
 

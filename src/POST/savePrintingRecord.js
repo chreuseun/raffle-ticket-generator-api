@@ -4,9 +4,11 @@ const AWS = require('aws-sdk');
 
 const { printRecord }  = require('../schemas/printRecord')
 const { DEFAULT_HTTP_HEADERS } = require('../constants/https')
+const callBackResponse = require('../utils/response')
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 const headers = { ...DEFAULT_HTTP_HEADERS }
+const { createResponseCallback  } = callBackResponse
 
 const savePrintRecord =  async (printRecord, callback) => {
 
@@ -18,25 +20,24 @@ const savePrintRecord =  async (printRecord, callback) => {
       Item: printRecord
     }
 
-    await dynamoDb.put(printRecordInfo).promise();
+    const response = await dynamoDb.put(printRecordInfo).promise();
 
-    callback(null,{
+    createResponseCallback({
+      callback,
       statusCode: 200,
       headers,
-      body: JSON.stringify({
-        message: `Printing Record: Successfully saved.`,
-        success:true
-      })
-    });
-
+      message: `Printing Record: Successfully saved.`,
+      success: true,
+      data: JSON.stringify(response)
+    })
   }catch(err){
-    callback(null, {
-      statusCode: 500,
+    createResponseCallback({
+      callback,
       headers,
-      body: JSON.stringify({
-        message: `Save Print Record: Database operation related issue, unable to save print record. Error details: ${err} `,
-        success: false
-      })
+      statusCode: 500,
+      message:  `Save Print Record: Database operation related issue, unable to save print record. Error details: ${err}`,
+      data: null,
+      success:false,
     })
   }
 }
@@ -67,23 +68,23 @@ const savePrintingRecords = async ( event, _, callback ) => {
       return
     }
 
-    callback(null,{
-      statusCode: 500,
-      headers,
-      body: JSON.stringify({
-        message: `Save Printing Record: Input validation error`,
-        success:false
-      })
-    });
 
-  }catch(err){
-    callback(null, {
+    createResponseCallback({
+      callback,
       statusCode: 500,
       headers,
-      body: JSON.stringify({
-        message: `Unable to save printing record. Error: ${err} `,
-        success: false
-      })
+      data:null,
+      message: `Save Printing Record: Input validation error`,
+      success:false
+    })
+  }catch(err){
+    createResponseCallback({
+      callback,
+      data: null,
+      headers,
+      message: `Unable to save printing record. Error: ${err}`,
+      statusCode: 500,
+      success:false
     })
   }
 };

@@ -1,7 +1,3 @@
-/*
-    GET print records by `create_at` field  from  PRD/DEV_PRINT_RECORDS table
-*/
-
 'use strict';
 
 const { DEFAULT_HTTP_HEADERS } = require('../constants/https')

@@ -8,7 +8,7 @@ const unmarshallDynamoDBObject = (dynamoDBObj) => AWS.DynamoDB.Converter.unmarsh
 
 const unmarshallDynamoDBRecords = (dynamoDBRecords) => {
   try{
-    dynamoDBRecords.map(i => unmarshallDynamoDBObject(i));
+    return dynamoDBRecords.map(i => unmarshallDynamoDBObject(i));
   }catch{
     return []
   }

@@ -11,6 +11,7 @@ provider:
   environment:
     TABLE_ACCOUNTS: ${opt:stage}_ACCOUNTS
     TABLE_PRINT_RECORDS: ${opt:stage}_PRINT_RECORDS 
+    STAGE: ${opt:stage}
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -113,6 +114,15 @@ functions:
       - http: 
           method: post
           path: save-printing-record
+          cors: true
+  getPrintRecordsByDateRange:
+    handler: src/GET.getPrintRecordsByDateRange
+    description: Get Print records by create_at field date range criteria
+    name: ${opt:stage}-${self:service}_printsByDaterange
+    events:
+      - http: 
+          method: get
+          path: getPrintRecordsByDateRange
           cors: true
 
 plugins:

@@ -19,6 +19,7 @@ provider:
         - dynamodb:Scan
         - dynamodb:GetItem
         - dynamodb:PutItem
+        - dynamodb:PartiQLSelect
       Resource: "*"
 
 resources:

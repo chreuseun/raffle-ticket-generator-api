@@ -7,7 +7,7 @@ const partiQLGetPrintRecordsByDateRange = ({
   dateEnd = 0
 }) => {
   return {
-    Statement: `SELECT * FROM ${TABLE_PRINT_RECORDS} WHERE create_at ? BETWEEN ?`,
+    Statement: `SELECT * FROM ${TABLE_PRINT_RECORDS} WHERE create_at BETWEEN ? AND ?`,
     Parameters: [
       { N: dateStart }, 
       { N: dateEnd },

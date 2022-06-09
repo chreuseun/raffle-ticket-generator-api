@@ -1,0 +1,8 @@
+
+const TABLE_ACCOUNTS =  process.env.TABLE_ACCOUNTS
+const TABLE_PRINT_RECORDS = process.env.TABLE_PRINT_RECORDS
+
+module.exports = {
+  TABLE_ACCOUNTS,
+  TABLE_PRINT_RECORDS
+}

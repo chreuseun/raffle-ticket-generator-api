@@ -125,6 +125,15 @@ functions:
           method: get
           path: getPrintRecordsByDateRange
           cors: true
+  signUp: 
+    handler: src/POST.signUp
+    description: Sign up user
+    name: ${opt:stage}-${self:service}-signup
+    events:
+      - http:
+          method: post
+          path: signUp
+          cors: true
 
 plugins:
   - serverless-ignore

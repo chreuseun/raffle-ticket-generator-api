@@ -9,7 +9,6 @@
     "build": "sh aws-credential-production.sh",
     "slsDEV": "sls deploy --stage 'DEV'",
     "slsPRD": "sls deploy --stage 'PRD'"
-
   },
   "repository": {
     "type": "git",
@@ -25,6 +24,7 @@
     "serverless-ignore": "^0.2.1"
   },
   "dependencies": {
+    "crypto-js": "^4.1.1",
     "uuid": "^8.3.2"
   }
 }

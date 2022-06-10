@@ -1,4 +1,5 @@
 const { DEFAULT_HTTP_HEADERS } = require('../constants/https')
+const { errorObject } = require('./error')
 
 const createResponseCallback = ({ 
   callback,
@@ -75,8 +76,17 @@ const getRequestQueryStringParameters = ({event = {}}) => {
   }
 }
 
+const parseEventBodyData  = ({ bodyString }) => {
+  try{
+    return JSON.parse(bodyString)
+  }catch (error){
+    return errorObject({errorMessage: error.message})
+  }
+}
+
 module.exports = {
   createResponseCallback,
   createResponse,
-  getRequestQueryStringParameters
+  getRequestQueryStringParameters,
+  parseEventBodyData,
 }

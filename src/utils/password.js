@@ -3,7 +3,9 @@ const  CryptoJS = require("crypto-js");
 
 const encryptPassword = ({password}) => {
   try{
-    return CryptoJS.AES.encrypt(password, '').toString();
+    return password ? 
+      CryptoJS.AES.encrypt(password, '').toString() :
+      null;
   }catch{
     return null;
   }
